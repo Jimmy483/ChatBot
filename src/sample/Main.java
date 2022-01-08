@@ -7,19 +7,22 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
+import java.util.ArrayList;
+import java.util.Random;
 
 public class Main implements  ActionListener{
     JButton btnSend=new JButton();
     TextField message=new TextField();
     TextArea textArea=new TextArea();
     Label title=new Label();
+    String[] arr={"Hi","Nice to meet you","I love you too"};
+
     public static void main(String[] args) {
         new Main();
     }
 
 
     public Main(){
-
 
 
             JFrame frame=new JFrame();
@@ -59,6 +62,24 @@ public class Main implements  ActionListener{
 
 
             message.setBounds(40,400,330,30);
+            message.addKeyListener(new KeyListener() {
+                @Override
+                public void keyTyped(KeyEvent e) {
+
+                }
+
+                @Override
+                public void keyPressed(KeyEvent e) {
+                    if(e.getKeyCode()==10){
+                        enter();
+                    }
+                }
+
+                @Override
+                public void keyReleased(KeyEvent e) {
+
+                }
+            });
             message.setFont(new Font("Arial",Font.PLAIN,20));
             panel.add(message);
 
@@ -74,11 +95,13 @@ public class Main implements  ActionListener{
             frame.setVisible(true);
     }
 
+    public void enter(){
 
-    @Override
-    public void actionPerformed(ActionEvent e) {
         String mes=message.getText();
-        if(message.getText().length()>10){
+        if(mes.equals("")){
+            return;
+        }
+        if(message.getText().length()>20){
 
             boolean check=true;
             String mess=mes;
@@ -104,8 +127,29 @@ public class Main implements  ActionListener{
             textArea.append(mes + "\n");
         }
 
-        message.setText("");
 
+        message.setText("");
+        Random rn=new Random();
+        int num=rn.nextInt(3);
+        //aligning bot message to right
+        for(int i=0;i<60;i++){
+            textArea.append(" ");
+        }
+
+        //aligning message to right for short sentences
+        if(arr[num].length()<40){
+            for(int j=0;j<(40-arr[num].length());j++){
+                textArea.append(" ");
+            }
+        }
+        textArea.append(arr[num] + "\n");
+    }
+
+    @Override
+    public void actionPerformed(ActionEvent e) {
+
+
+        enter();
 
     }
 }
