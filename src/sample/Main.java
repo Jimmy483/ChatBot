@@ -100,6 +100,12 @@ public class Main implements  ActionListener {
 
     public void enter(){
 
+        userMessage();
+        botMessage();
+
+    }
+
+    public void userMessage(){
         String mes=message.getText();
         if(mes.equals("")){
             return;
@@ -132,43 +138,66 @@ public class Main implements  ActionListener {
 
 
         message.setText("");
-        Random rn=new Random();
-        int num=rn.nextInt(4);
+    }
+
+    public void botMessage() {
+
+        Random rn = new Random();
+        int num = rn.nextInt(4);
         //aligning bot message to right
-        for(int i=0;i<60;i++){
-            textArea.append(" ");
-        }
+//        for(int i=0;i<60;i++){
+//            textArea.append(" ");
+//        }
 
         //aligning message to right for short sentences
-        if(arr[num].length()<40){
-            for(int j=0;j<(40-arr[num].length());j++){
-                textArea.append(" ");
-            }
-        }
+//        if(arr[num].length()<40){
+//            for(int j=0;j<(40-arr[num].length());j++){
+//                textArea.append(" ");
+//            }
+//        }
 
-        int leng=arr[num].length();
+        if (arr[num].length() * 8 < textArea.getWidth() / 2) {
+            for (int j = 0; j < (textArea.getWidth() / 2 - arr[num].length() * 8); j++) {
+                textArea.append(" ");
+
+            }
+            textArea.append(arr[num] + "\n");
+        } else {
+            int leng = arr[num].length();
 //        for(int i=0;i<leng;i++){
 //
 //            textArea.append(arr[num].substring(i,i+1));
 //            System.out.println(textArea.getCursor().toString());
 //
 //        }
-//        int changeWidth=textArea.getWidth()/2;
+            int changeWidth = textArea.getWidth() / 2;
 //        boolean check=true;
 //
-//        if(leng*30>changeWidth){
-//            while(leng*30>=changeWidth){
-//                textArea.append(arr[num].substring(0,changeWidth/30));
-//                arr[num]=arr[num].substring(changeWidth/30,leng);
-//                if(arr[num].length()<changeWidth/30){
-//                    textArea.append(arr[num]);
-//                }
-//                leng=leng-(int)(changeWidth/30);
-//
-//            }
-//            textArea.append("\n");
-//        }
+//            if (leng * 8 > changeWidth) {
 
+
+            while (leng * 8 >= changeWidth){
+                for (int i = 0; i < changeWidth / 8; i++) {
+                    textArea.append(" ");
+                }
+                textArea.append(arr[num].substring(0, changeWidth / 8) + "\n");
+                arr[num] = arr[num].substring(changeWidth / 8, leng);
+                if (arr[num].length() < changeWidth / 8) {
+                    textArea.append(arr[num]);
+                }
+//                else {
+//                    for (int i = 0; i < changeWidth / 8; i++) {
+//                        textArea.append(" ");
+//                    }
+//
+//                }
+                leng = leng - (int) (changeWidth / 8);
+
+            }
+            textArea.append("\n");
+        }
+
+        message.setText("");
         //textArea.append("\n");
         //textArea.append(arr[num] + "\n");
     }
