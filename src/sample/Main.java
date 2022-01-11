@@ -17,6 +17,7 @@ public class Main implements  ActionListener {
     Label title=new Label();
     String[] arr={"Hi","Nice to meet you","I love you too","My name is Borat and i am from Kazakhstan. My neighbours are noisy and always try to copy me"};
 
+
     public static void main(String[] args) {
         new Main();
     }
@@ -156,7 +157,14 @@ public class Main implements  ActionListener {
 //            }
 //        }
 
-        if (arr[num].length() * 8 < textArea.getWidth() / 2) {
+        if(arr[num].length()<10){
+            for(int i=0;i<100;i++){
+                textArea.append(" ");
+            }
+            textArea.append(arr[num] + "\n");
+
+        }
+        else if (arr[num].length() * 8 < textArea.getWidth() / 2) {
             for (int j = 0; j < (textArea.getWidth() / 2 - arr[num].length() * 8); j++) {
                 textArea.append(" ");
 
@@ -177,12 +185,15 @@ public class Main implements  ActionListener {
 
 
             while (leng * 8 >= changeWidth){
-                for (int i = 0; i < changeWidth / 8; i++) {
+                for (int i = 0; i < 60; i++) {
                     textArea.append(" ");
                 }
                 textArea.append(arr[num].substring(0, changeWidth / 8) + "\n");
                 arr[num] = arr[num].substring(changeWidth / 8, leng);
                 if (arr[num].length() < changeWidth / 8) {
+                    for(int j=0;j<60;j++){
+                        textArea.append(" ");
+                    }
                     textArea.append(arr[num]);
                 }
 //                else {
